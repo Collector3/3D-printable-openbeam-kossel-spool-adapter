@@ -4,6 +4,8 @@ _Note: Work in progress_
 
 This is a holder/adapter for a Replicator style spool holder. It mounts to an aluminum OpenBeam extrusion using three M3 x 6mm BHCS screws (included in an OpenBeam Kossel Pro kit).
 
+Compatible with: [Customizable Spool Holder for Replicator 2](http://www.thingiverse.com/thing:44906)
+
 ### Other places you can find this at
 
 [Thingiverse](http://www.thingiverse.com/thing:642171)
