@@ -37,25 +37,28 @@ difference() {
 				cube([mater_thickness,mater_width,mater_length]);
 
 				// Top lip, catch plate
-				translate([10, 0, mater_length+1]) mirror([0, 0, 1]) 
-					rotate([0, 30, 0]) cube([3.5, mater_width+retainer_plate_offset, 8]);
+				#translate([9, 0, mater_length+1.2]) mirror([0, 0, 1]) 
+					rotate([0, 30, 0]) cube([4, mater_width+retainer_plate_offset, 8]);
 
 				// Top barrier plate, +.5 to match side retainer plates
-				translate([0, 0, mater_length]) cube([14, mater_width+retainer_plate_offset, 3]);
+				#translate([0, 0, mater_length]) cube([14, mater_width+retainer_plate_offset, 3]);
 
 				// Bottom lip (internal holder area)
 				translate([9, 0, 29]) rotate([0, 0, 0]) cube([5, mater_width, 10]);
+
+				// 45 deg support for internal bottom catch plate
+				translate([8, retainer_plate_offset, 30]) {
+					rotate([0, 30, 0]) cube([2, mater_width, 5]);
+
+				}
 
 				// Bottom catch plate and bottom screw hollow area
 				translate([3, retainer_plate_offset, 0]) {
 					difference() {
 						cube([11, mater_width, 30]);
-						#translate([0, 0, mater_thickness]) cube([11.5, mater_width-1, 22]);
+						translate([0, 0, mater_thickness]) cube([11.5, mater_width-1, 22]);
 					}
 				}
-
-
-				// TODO: 45 deg support for internal bottom catch plate
 			} //end union
 
 			// Drill hits -- the end user does not need to screw all of these in
