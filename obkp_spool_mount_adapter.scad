@@ -19,7 +19,7 @@ module drill_hit() {
        // screw
 	   translate([0, mater_width/2, 0]) cylinder(r=drill_size/2,   h=drill_depth+mater_depth);
        // outer ring to capture screw head, approx larger by 1.15mm
-	   #translate([0, mater_width/2, drill_depth]) cylinder(r=drill_size/1.4, h=mater_depth);
+	   translate([0, mater_width/2, drill_depth]) cylinder(r=drill_size/1.4, h=mater_depth);
 }
 
 // Shift geometry a bit so we can add side paneling without changing
@@ -39,18 +39,18 @@ difference() {
 				cube([mater_depth,mater_width,30]);
                     union() {
                     // Top lip, angled catch plate
-                    #translate([mater_depth-6.50, 0, mater_length-6]) mirror([0, 0, 1]) 
+                    #translate([mater_depth-6.50, 0, mater_length-7]) mirror([0, 0, 1]) 
                         rotate([0, 40, 0]) cube([5.8, mater_width+retainer_plate_offset, 3.2]);
 
                     // Connective block to top lip
-                    #translate([mater_depth-6.50, 0, mater_length-6]) 
-                        cube([6.50, mater_width+retainer_plate_offset, 6]);
+                    #translate([mater_depth-6.50, 0, mater_length-7]) 
+                        cube([6.50, mater_width+retainer_plate_offset, 7]);
                     }
 				// Top barrier plate, +.5 to match side retainer plates
 				translate([0, 0, mater_length]) cube([mater_depth, mater_width+retainer_plate_offset, 3.2]);
 
 				// Bottom lip (internal holder area)
-				#translate([mater_depth-5, 1, 30]) cube([5, mater_width, 8.5]);
+				translate([mater_depth-5, 1, 30]) cube([5, mater_width, 8.5]);
 
 				// 45 deg support for internal bottom catch plate
 				/*translate([7, retainer_plate_offset, 30]) {
