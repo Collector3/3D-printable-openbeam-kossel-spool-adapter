@@ -17,9 +17,10 @@ retainer_plate_offset = 1.5;
 
 module drill_hit() {
        // screw
-	   translate([0, mater_width/2, 0]) cylinder(r=drill_size/2,   h=drill_depth+mater_depth);
+	   //#translate([0, mater_width/2, 0]) cylinder(r=drill_size/2,   h=drill_depth+mater_depth);
        // outer ring to capture screw head, approx larger by 1.15mm
-	   translate([0, mater_width/2, drill_depth]) cylinder(r=drill_size/1.4, h=mater_depth);
+	   //#translate([0, mater_width/2, drill_depth]) cylinder(r=drill_size/1.4, h=mater_depth, d2 = 10);
+        #translate([0, mater_width/2, 0]) cylinder(r=drill_size/2.5, h=mater_depth+drill_depth, d2 = 7.5);
 }
 
 // Shift geometry a bit so we can add side paneling without changing
@@ -37,7 +38,7 @@ difference() {
 			union() {
 				// Base bracket (attached to OpenBeam)
 				cube([mater_depth,mater_width,30]);
-                    union() {
+                union() {
                     // Top lip, angled catch plate
                     #translate([mater_depth-6.50, 0, mater_length-7]) mirror([0, 0, 1]) 
                         rotate([0, 40, 0]) cube([5.8, mater_width+retainer_plate_offset, 3.2]);
@@ -45,10 +46,12 @@ difference() {
                     // Connective block to top lip
                     #translate([mater_depth-6.50, 0, mater_length-7]) 
                         cube([6.50, mater_width+retainer_plate_offset, 7]);
-                    }
-				// Top barrier plate, +.5 to match side retainer plates
-				translate([0, 0, mater_length]) cube([mater_depth, mater_width+retainer_plate_offset, 3.2]);
-
+                }
+                // Top barrier plate, +.5 to match side retainer plates
+                difference() {
+                    #translate([0, 0, mater_length]) cube([mater_depth, mater_width+retainer_plate_offset, 9]);
+                    translate([-2, 0, 75]) mirror(1) rotate([0, 270, 0]) drill_hit();
+                }
 				// Bottom lip (internal holder area)
 				translate([mater_depth-5, 1, 30]) cube([5, mater_width, 8.5]);
 
