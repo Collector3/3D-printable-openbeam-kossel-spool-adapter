@@ -68,12 +68,12 @@ union() {
         
     // Side drill hits 
     // Left panel
-    #translate([5,retainer_plate_offset,40]) rotate([90, 0, 0]) drill_hit(5,3);
-    #translate([5,retainer_plate_offset,26]) rotate([90, 0, 0]) drill_hit(5,3);    
+    #translate([5,retainer_plate_offset,28]) rotate([90, 0, 0]) drill_hit(5,3);
+    #translate([5,retainer_plate_offset,20]) rotate([90, 0, 0]) drill_hit(5,3);    
         
     // Righ panel
-    #translate([5,mater_width+retainer_plate_offset,40]) rotate([90, 0, 0]) drill_hit(5,3);
-    #translate([5,mater_width+retainer_plate_offset,26]) rotate([90, 0, 0]) drill_hit(5,3);
+    #translate([5,mater_width+retainer_plate_offset,28]) rotate([90, 0, 0]) drill_hit(5,3);
+    #translate([5,mater_width+retainer_plate_offset,20]) rotate([90, 0, 0]) drill_hit(5,3);
         
     /// Holes to save filament/printing time.      
     // Left:
