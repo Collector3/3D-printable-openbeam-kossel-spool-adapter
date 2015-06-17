@@ -20,7 +20,7 @@ module drill_hit() {
 	   //#translate([0, mater_width/2, 0]) cylinder(r=drill_size/2,   h=drill_depth+mater_depth);
        // outer ring to capture screw head, approx larger by 1.15mm
 	   //#translate([0, mater_width/2, drill_depth]) cylinder(r=drill_size/1.4, h=mater_depth, d2 = 10);
-        #translate([0, mater_width/2, 0]) cylinder(r=drill_size/2.5, h=mater_depth+drill_depth, d2 = 7.5);
+        #translate([0, mater_width/2, 0]) cylinder(r=drill_size/2.4, h=mater_depth+drill_depth, d2 = 6.5);
 }
 
 // Shift geometry a bit so we can add side paneling without changing
