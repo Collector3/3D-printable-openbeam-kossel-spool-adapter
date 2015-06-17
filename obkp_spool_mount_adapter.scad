@@ -33,7 +33,6 @@ difference() {
 		// Retainer panel opposite side
 		translate([0, mater_width, 0]) cube([mater_depth, retainer_plate_offset, mater_length]); 
 
-		//translate([0,1.5,0]) 
 		difference() {
 			union() {
 				// Base bracket (attached to OpenBeam)
@@ -53,39 +52,44 @@ difference() {
 				// Bottom lip (internal holder area)
 				translate([mater_depth-5, 1, 30]) cube([5, mater_width, 8.5]);
 
-				// 45 deg support for internal bottom catch plate
-				/*translate([7, retainer_plate_offset, 30]) {
-					rotate([0, 30, 0]) cube([2, mater_width, 5]);
-
-				}*/
-
 				// Bottom catch plate and bottom screw hollow area
 				translate([3, retainer_plate_offset, 0]) {
 					difference() {
 						cube([11, mater_width, 30]);
 						translate([0, 0, mater_thickness]) cube([11.5, mater_width-1, 22]);
 					}
-				}
+				}        
 			} //end union
 
-			// Drill hits -- the end user does not need to screw all of these in
-			// for stability but they're here for extra configurability.
-			
+			// Drill hits			
 			translate([-2, 0, 8])  mirror(1) rotate([0, 270, 0]) drill_hit();
 			translate([-2, 0, 22]) mirror(1) rotate([0, 270, 0]) drill_hit();
-
-  
+            
 		} //end difference 
+        
+        // 45 degree panels for mounting spool holder at an angle to cold end
+        /*translate([-10,mater_width/2+bottom_cutout_amount+8.5, 2.5]) rotate([0,0,-45]) { 
+            //translate([-15,mater_width/2+bottom_cutout_amount, 2.5]) 
+            #cube([15, 1.5, 25]);
+        }*/
+        //translate([-15, bottom_cutout_amount, 2.5]) 
+        translate([-10, -10+bottom_cutout_amount, 2.5]) rotate([0,0,45]) { 
+            difference() { 
+                cube([15, 1.5, 25]);
+                translate([7, 2, 8])  rotate([90,0,0]) drill_hit();
+                translate([7, 2, 22]) rotate([90,0,0]) drill_hit();
+            }
+        }
 	} //end union
 
-          	// Holes to save filament/printing time. 
+    // Holes to save filament/printing time. 
     // Y is determined from approx relative of drills, with an offset (+/-) to remove
     
     // Left:
-	#translate([0, 0, 2.5]) cube([mater_depth, bottom_cutout_amount, 25]);
+	translate([0, 0, 2.5]) cube([mater_depth, bottom_cutout_amount, 25]);
     
 	// Right: 
-	#translate([0, mater_width-7, 2.5]) cube([mater_depth, bottom_cutout_amount+retainer_plate_offset, 25]);
+	translate([0, mater_width-bottom_cutout_amount, 2.5]) cube([mater_depth, bottom_cutout_amount+retainer_plate_offset, 25]);
 			
     
 	// Corrective geometry for offsets if needed
