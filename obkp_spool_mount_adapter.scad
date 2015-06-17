@@ -13,87 +13,76 @@ drill_size            = 4.5;
 inset_depth           = 1.5;
 drill_depth           = 3;
 
-retainer_plate_offset = 1.5;
+retainer_plate_offset = 2.5;
 bottom_cutout_amount  = 7;
 
-module drill_hit() {
+module drill_hit(d2_depth=12,height=mater_depth+drill_depth) {
        // screw
 	   //#translate([0, mater_width/2, 0]) cylinder(r=drill_size/2,   h=drill_depth+mater_depth);
        // outer ring to capture screw head, approx larger by 1.15mm
 	   //#translate([0, mater_width/2, drill_depth]) cylinder(r=drill_size/1.4, h=mater_depth, d2 = 10);
-        translate([0, mater_width/2, 0]) cylinder(r=drill_size/2.4, h=mater_depth+drill_depth, d2 = 12);
+        translate([0, mater_width/2, 0]) cylinder(r=drill_size/2.4, h=height, d2 = d2_depth);
 }
 
 
-difference() {
-	union() {
-		// Retainer panel closest to origin..
-		translate([0, 0, 0]) cube([mater_depth, retainer_plate_offset, mater_length]); 
 
-		// Retainer panel opposite side
-		translate([0, mater_width, 0]) cube([mater_depth, retainer_plate_offset, mater_length]); 
+union() {
+    difference() {
+        union() {
+             // Retainer panel closest to origin..
+            translate([0, 0, 0]) cube([mater_depth, retainer_plate_offset, mater_length]); 
 
-		difference() {
-			union() {
-				// Base bracket (attached to OpenBeam)
-				cube([mater_depth,mater_width,30]);
-                union() {
-                    // Top lip, angled catch plate
-                    translate([mater_depth-6.50, .5, mater_length-7]) mirror([0, 0, 1]) 
-                        rotate([0, 40, 0]) cube([5.8, mater_width+retainer_plate_offset/2, 3.2]);
-
-                    // Connective block to top lip
-                    translate([mater_depth-6.50, .5, mater_length-7]) 
-                        cube([6.50, mater_width+retainer_plate_offset/2, 7]);
-                }
-                // Top barrier plate, +.5 to match side retainer plates
-                translate([0, 0, mater_length]) cube([mater_depth, mater_width+retainer_plate_offset, 2]);
-                
-				// Bottom lip (internal holder area)
-				translate([mater_depth-5, 1, 30]) cube([5, mater_width, 8.5]);
-
-				// Bottom catch plate and bottom screw hollow area
-				translate([3, retainer_plate_offset, 0]) {
-					difference() {
-						cube([11, mater_width, 30]);
-						translate([0, 0, mater_thickness]) cube([11.5, mater_width-1, 22]);
-					}
-				}        
-			} //end union
-
-			// Drill hits			
-			translate([-2, 0, 8])  mirror(1) rotate([0, 270, 0]) drill_hit();
-			translate([-2, 0, 22]) mirror(1) rotate([0, 270, 0]) drill_hit();
+            // Retainer panel opposite side
+            translate([0, mater_width, 0]) cube([mater_depth, retainer_plate_offset, mater_length]);
             
-		} //end difference 
-        
-        // 45 degree panels for mounting spool holder at an angle to cold end
-        /*translate([-10,mater_width/2+bottom_cutout_amount+8.5, 2.5]) rotate([0,0,-45]) { 
-            //translate([-15,mater_width/2+bottom_cutout_amount, 2.5]) 
-            #cube([15, 1.5, 25]);
-        }*/
-        //translate([-15, bottom_cutout_amount, 2.5]) 
-        translate([-10, -10+bottom_cutout_amount, 2.5]) rotate([0,0,45]) { 
-            difference() { 
-                cube([15, 1.5, 25]);
-                #translate([7, 2, 4.5])  rotate([90,0,0]) drill_hit();
-                #translate([7, 2, -9.5]) rotate([90,0,0]) drill_hit();
+            // Base bracket (attached to OpenBeam)
+            cube([mater_depth,mater_width,30]);
+            
+            union() {
+                // Top lip, angled catch plate
+                translate([mater_depth-6.50, .5, mater_length-7]) mirror([0, 0, 1]) 
+                    rotate([0, 40, 0]) cube([5.8, mater_width+retainer_plate_offset/2, 3.2]);
+
+                // Connective block to top lip
+                translate([mater_depth-6.50, .5, mater_length-7]) 
+                    cube([6.50, mater_width+retainer_plate_offset/2, 7]);
             }
-        }
-	} //end union
+            // Top barrier plate, +.5 to match side retainer plates
+            translate([0, 0, mater_length]) cube([mater_depth, mater_width+retainer_plate_offset, 2]);
+            
+            // Bottom lip (internal holder area)
+            translate([mater_depth-5, 1, 30]) cube([5, mater_width, 8.5]);
 
-    // Holes to save filament/printing time. 
-    // Y is determined from approx relative of drills, with an offset (+/-) to remove
-    
+            // Bottom catch plate and bottom screw hollow area
+            translate([3, retainer_plate_offset, 0]) {
+                difference() {
+                    cube([11, mater_width, 30]);
+                    translate([0, 0, mater_thickness]) cube([11.5, mater_width-1, 22]);
+                }
+            }        
+        } //end union
+
+    // Drill hits			
+    #translate([-2, 1, 8])  mirror(1) rotate([0, 270, 0]) drill_hit();
+    #translate([-2, 1, 22]) mirror(1) rotate([0, 270, 0]) drill_hit();
+        
+    // Side drill hits 
+    // Left panel
+    #translate([5,retainer_plate_offset,40]) rotate([90, 0, 0]) drill_hit(5,3);
+    #translate([5,retainer_plate_offset,26]) rotate([90, 0, 0]) drill_hit(5,3);    
+        
+    // Righ panel
+    #translate([5,mater_width+retainer_plate_offset,40]) rotate([90, 0, 0]) drill_hit(5,3);
+    #translate([5,mater_width+retainer_plate_offset,26]) rotate([90, 0, 0]) drill_hit(5,3);
+        
+    /// Holes to save filament/printing time.      
     // Left:
-	translate([0, 0, 2.5]) cube([mater_depth, bottom_cutout_amount, 25]);
-    
-	// Right: 
-	translate([0, mater_width-bottom_cutout_amount, 2.5]) cube([mater_depth, bottom_cutout_amount+retainer_plate_offset, 25]);
-			
-    
-	// Corrective geometry for offsets if needed
-	// Inner shape
- 	//translate([0,1.5,0]) translate([3, 0, 30]) cube([9.5, 27, 38]);
+    translate([0, 0, 2.5]) 
+        #cube([mater_depth, bottom_cutout_amount, 25]);
 
-} //end difference
+    // Right: 
+    #translate([0, mater_width-bottom_cutout_amount+retainer_plate_offset, 2.5]) 
+        cube([mater_depth, bottom_cutout_amount, 25]);
+        
+  } // end difference
+} // end union
