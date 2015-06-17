@@ -76,8 +76,8 @@ difference() {
         translate([-10, -10+bottom_cutout_amount, 2.5]) rotate([0,0,45]) { 
             difference() { 
                 cube([15, 1.5, 25]);
-                translate([7, 2, 8])  rotate([90,0,0]) drill_hit();
-                translate([7, 2, 22]) rotate([90,0,0]) drill_hit();
+                #translate([7, 2, 4.5])  rotate([90,0,0]) drill_hit();
+                #translate([7, 2, -9.5]) rotate([90,0,0]) drill_hit();
             }
         }
 	} //end union
