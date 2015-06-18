@@ -7,7 +7,7 @@ $fn=60;
 mater_thickness 	   = 3;
 mater_length    	   = 70.8;
 mater_width     	   = 30;
-mater_depth            = 22;
+mater_depth            = 23;
 
 drill_size             = 4.5;
 inset_depth            = 1.5;
@@ -40,10 +40,10 @@ union() {
             translate([0, mater_width, 0]) cube([mater_depth, retainer_plate_offset, mater_length]);            
             // 30 degree flange -- origin side
             difference() {
-                translate([mater_depth,0,base_height+bottom_cutout_amount_z]) rotate(30) translate([-25,0,0])
-                    cube([25, 10,mater_length-(base_height+bottom_cutout_amount_z)+top_catch_plate_height]);                
+                translate([mater_depth, 0, base_height+bottom_cutout_amount_z]) rotate(30) translate([-15,0,0])
+                    cube([15, 9,mater_length-(base_height+bottom_cutout_amount_z)+top_catch_plate_height]);                
                 translate([mater_depth,0,base_height+bottom_cutout_amount_z]) translate([-25,0,0])
-                    cube([25,10,mater_length-(base_height+bottom_cutout_amount_z)+top_catch_plate_height]);
+                    cube([25, 10,mater_length-(base_height+bottom_cutout_amount_z)+top_catch_plate_height]);
 
             }
             
@@ -51,7 +51,7 @@ union() {
             difference() {                        
                 translate([mater_depth,mater_width+retainer_plate_offset, 
                     base_height+bottom_cutout_amount_z]) rotate(150) translate([0,0,0])
-                cube([25, 10,mater_length-(base_height+bottom_cutout_amount_z)+top_catch_plate_height]); 
+                cube([15, 9,mater_length-(base_height+bottom_cutout_amount_z)+top_catch_plate_height]); 
                 
                 translate([mater_depth, mater_width+retainer_plate_offset, base_height+bottom_cutout_amount_z]) rotate(0) translate([-25,-10,0])
                     cube([25, 10,mater_length-(base_height+bottom_cutout_amount_z)+top_catch_plate_height]);               
@@ -94,12 +94,12 @@ union() {
         
     // Side drill hits 
     // Left panel
-    #translate([4,-10,28]) rotate(30) mirror([0,1,0]) rotate([90, 0, 0]) drill_hit(5,13);
-    #translate([5,-10,20]) rotate(30) mirror([0,1,0]) rotate([90, 0, 0]) drill_hit(5,13);    
+    #translate([7,-5, 40]) rotate(120) rotate([90, 0, 0]) drill_hit(5,30);
+    #translate([7,-5, 30]) rotate(120) rotate([90, 0, 0]) drill_hit(5,30);    
         
     // Right panel
-    #translate([5,mater_width+retainer_plate_offset+1,28]) rotate([90, 0, 0]) drill_hit(5,3);
-    #translate([5,mater_width+retainer_plate_offset+1,20]) rotate([90, 0, 0]) drill_hit(5,3);
+    #translate([7,mater_width+retainer_plate_offset+5,40]) rotate(60) rotate([90, 0, 0]) drill_hit(4,30);
+    #translate([7,mater_width+retainer_plate_offset+5,30]) rotate(60) rotate([90, 0, 0]) drill_hit(4,30);
         
     /// Holes at bottom to save filament/printing time.      
     // Left:
