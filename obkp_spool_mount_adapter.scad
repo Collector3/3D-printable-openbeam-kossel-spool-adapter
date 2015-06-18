@@ -34,9 +34,10 @@ union() {
         // Main body
         union() {
             // Retainer panel closest to origin..
-            
             translate([0, 0, 0]) cube([mater_depth, retainer_plate_offset, mater_length]); 
             
+            // Retainer panel opposite side
+            translate([0, mater_width, 0]) cube([mater_depth, retainer_plate_offset, mater_length]);            
             // 30 degree flange -- origin side
             difference() {
                 translate([mater_depth,0,base_height+bottom_cutout_amount_z]) rotate(30) translate([-25,0,0])
@@ -45,14 +46,15 @@ union() {
                     cube([25,10,mater_length-(base_height+bottom_cutout_amount_z)+top_catch_plate_height]);
 
             }
-            union() {
-                // Retainer panel opposite side
-                translate([0, mater_width, 0]) cube([mater_depth, retainer_plate_offset, mater_length]);
-                
-                // 30 degree flange -- opposite origin
+            
+            // 30 degree flange -- opposite origin
+            difference() {                        
                 translate([mater_depth,mater_width+retainer_plate_offset, 
                     base_height+bottom_cutout_amount_z]) rotate(150) translate([0,0,0])
                 cube([25, 10,mater_length-(base_height+bottom_cutout_amount_z)+top_catch_plate_height]); 
+                
+                translate([mater_depth, mater_width+retainer_plate_offset, base_height+bottom_cutout_amount_z]) rotate(0) translate([-25,-10,0])
+                    cube([25, 10,mater_length-(base_height+bottom_cutout_amount_z)+top_catch_plate_height]);               
             }
             
             // Base bracket (attached to OpenBeam)
@@ -92,12 +94,12 @@ union() {
         
     // Side drill hits 
     // Left panel
-    translate([5,retainer_plate_offset,28]) rotate([90, 0, 0]) drill_hit(5,3);
-    translate([5,retainer_plate_offset,20]) rotate([90, 0, 0]) drill_hit(5,3);    
+    #translate([4,-10,28]) rotate(30) mirror([0,1,0]) rotate([90, 0, 0]) drill_hit(5,13);
+    #translate([5,-10,20]) rotate(30) mirror([0,1,0]) rotate([90, 0, 0]) drill_hit(5,13);    
         
     // Right panel
-    translate([5,mater_width+retainer_plate_offset,28]) rotate([90, 0, 0]) drill_hit(5,3);
-    translate([5,mater_width+retainer_plate_offset,20]) rotate([90, 0, 0]) drill_hit(5,3);
+    #translate([5,mater_width+retainer_plate_offset+1,28]) rotate([90, 0, 0]) drill_hit(5,3);
+    #translate([5,mater_width+retainer_plate_offset+1,20]) rotate([90, 0, 0]) drill_hit(5,3);
         
     /// Holes at bottom to save filament/printing time.      
     // Left:
