@@ -41,8 +41,17 @@ union() {
             
             // 30 degree flange -- origin side
             difference() {
-                translate([mater_depth, 0, base_height+bottom_cutout_amount_z]) rotate(30) translate([-14,0,0]) {
-                    cube([14, 9,mater_length-(base_height+bottom_cutout_amount_z)+top_catch_plate_height]);      
+                union() {
+                    // Flat flange facing openbeam at angle for straightened spool holder
+                    #translate([mater_depth+2.58, 4, 32]) rotate(30) translate([-14,0,0]) {
+                        // 150-32.8 degrees = 117.2
+                        rotate(117.3) 
+                            cube([12.95, 4.75, mater_length-(base_height+bottom_cutout_amount_z)+top_catch_plate_height-10]);
+                    }
+                
+                    translate([mater_depth, 0, base_height+bottom_cutout_amount_z]) rotate(30) translate([-14,0,0]) {
+                        cube([14, 9,mater_length-(base_height+bottom_cutout_amount_z)+top_catch_plate_height]);      
+                    }
                 }
                 
                 translate([mater_depth,0,base_height+bottom_cutout_amount_z]) translate([-25,0,0]) {
@@ -52,16 +61,24 @@ union() {
             }
             
             // 30 degree flange -- opposite origin
-            difference() {                        
-                translate([mater_depth,mater_width+retainer_plate_offset, base_height+bottom_cutout_amount_z]) {
-                    rotate(150) cube([14, 9,mater_length-(base_height+bottom_cutout_amount_z)+top_catch_plate_height]); 
+            difference() {                       
+               union() {                  
+                    // Flat flange facing openbeam at angle for straightened spool holder
+                    translate([0,mater_width+retainer_plate_offset,32]){
+                        rotate(32.8) rotate([90,0,0]) 
+                            cube([12.935, mater_length-(base_height+bottom_cutout_amount_z)+top_catch_plate_height-10, 4]);
+                    }
+                    
+                    translate([mater_depth,mater_width+retainer_plate_offset, base_height+bottom_cutout_amount_z]) {
+                        rotate(150) cube([14, 9,mater_length-(base_height+bottom_cutout_amount_z)+top_catch_plate_height]); 
+                    }
                 }
+                
                 translate([mater_depth-25, mater_width+retainer_plate_offset-10, base_height+bottom_cutout_amount_z]) {
                     cube([25, 10,mater_length-(base_height+bottom_cutout_amount_z)+top_catch_plate_height]);     
                 }
-            }
-            
 
+            }
             
 
 
@@ -91,8 +108,6 @@ union() {
                     translate([0, 0, mater_thickness]) cube([11.5, mater_width-1, 22]);
                 } // .. difference
             } // .. translate   
-       
-          
         } // .. union
 
     // Drill hits			
@@ -101,13 +116,13 @@ union() {
         
     // Side drill hits 
     // Left panel
-    #translate([3,-5, 32]) rotate(140) rotate([90, 0, 0]) drill_hit(6,20);
-    #translate([3,-5, 25]) rotate(140) rotate([90, 0, 0]) drill_hit(6,20);    
+    #translate([3,-5, 32]) rotate(140) rotate([90, 0, 0]) drill_hit(6,15);
+    translate([3,-5, 25]) rotate(140) rotate([90, 0, 0]) drill_hit(6,15);    
     //#translate([3,-5, 19]) rotate(145) rotate([90, 0, 0]) drill_hit(6,10);   
         
     // Right panel
-    translate([2,mater_width+retainer_plate_offset+5,32]) rotate(46) rotate([90, 0, 0]) drill_hit(6,20);
-    translate([2,mater_width+retainer_plate_offset+5,25]) rotate(46) rotate([90, 0, 0]) drill_hit(6,20);
+    #translate([2,mater_width+retainer_plate_offset+5,32]) rotate(46) rotate([90, 0, 0]) drill_hit(6,15);
+    #translate([2,mater_width+retainer_plate_offset+5,25]) rotate(46) rotate([90, 0, 0]) drill_hit(6,15);
     //#translate([0,mater_width+retainer_plate_offset+5,19]) rotate(48) rotate([90, 0, 0]) drill_hit(5,20);    
      
     /// Holes at bottom to save filament/printing time.      
