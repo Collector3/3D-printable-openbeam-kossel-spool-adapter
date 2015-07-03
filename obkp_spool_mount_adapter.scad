@@ -21,10 +21,6 @@ base_height            = 2.5;
 top_catch_plate_height = 2;
 
 module drill_hit(d2_depth=12,height=mater_depth+drill_depth) {
-       // screw
-	   //#translate([0, mater_width/2, 0]) cylinder(r=drill_size/2,   h=drill_depth+mater_depth);
-       // outer ring to capture screw head, approx larger by 1.15mm
-	   //#translate([0, mater_width/2, drill_depth]) cylinder(r=drill_size/1.4, h=mater_depth, d2 = 10);
         translate([0, mater_width/2, 0]) cylinder(r=drill_size/2.4, h=height, d2 = d2_depth);
 }
 
@@ -42,11 +38,10 @@ union() {
             // 30 degree flange -- origin side
             difference() {
                 union() {
-                    // Flat flange facing openbeam at angle for straightened spool holder
-                    #translate([mater_depth+2.58, 4, 32]) rotate(30) translate([-14,0,0]) {
-                        // 150-32.8 degrees = 117.2
-                        rotate(117.3) 
-                            cube([12.95, 4.75, mater_length-(base_height+bottom_cutout_amount_z)+top_catch_plate_height-10]);
+                    // Flat facing openbeam at angle for straightened spool holder
+                   #translate([2.5, -2.3, 32]) translate([11,0,0]) rotate(150) 
+                    {
+                            cube([13, 5, mater_length-(base_height+bottom_cutout_amount_z)+top_catch_plate_height-10]);
                     }
                 
                     translate([mater_depth, 0, base_height+bottom_cutout_amount_z]) rotate(30) translate([-14,0,0]) {
@@ -63,10 +58,10 @@ union() {
             // 30 degree flange -- opposite origin
             difference() {                       
                union() {                  
-                    // Flat flange facing openbeam at angle for straightened spool holder
-                    translate([0,mater_width+retainer_plate_offset,32]){
-                        rotate(32.8) rotate([90,0,0]) 
-                            cube([12.935, mater_length-(base_height+bottom_cutout_amount_z)+top_catch_plate_height-10, 4]);
+                    // Flat facing openbeam at angle for straightened spool holder
+                    #translate([2.5, mater_width-2.56, 32]) rotate([0, 0, 30]) 
+                    {
+                        cube([13, 5, mater_length-(base_height+bottom_cutout_amount_z)+top_catch_plate_height-10]);
                     }
                     
                     translate([mater_depth,mater_width+retainer_plate_offset, base_height+bottom_cutout_amount_z]) {
@@ -79,7 +74,7 @@ union() {
                 }
 
             }
-            
+
 
 
             // Base bracket (attached to OpenBeam)
@@ -116,15 +111,13 @@ union() {
         
     // Side drill hits 
     // Left panel
-    #translate([3,-5, 32]) rotate(140) rotate([90, 0, 0]) drill_hit(6,15);
-    translate([3,-5, 25]) rotate(140) rotate([90, 0, 0]) drill_hit(6,15);    
-    //#translate([3,-5, 19]) rotate(145) rotate([90, 0, 0]) drill_hit(6,10);   
+    translate([3,-5, 32]) rotate(150) rotate([90, 0, 0]) drill_hit(6,18);
+    translate([3,-5, 25]) rotate(150) rotate([90, 0, 0]) drill_hit(6,18);    
         
     // Right panel
-    #translate([2,mater_width+retainer_plate_offset+5,32]) rotate(46) rotate([90, 0, 0]) drill_hit(6,15);
-    #translate([2,mater_width+retainer_plate_offset+5,25]) rotate(46) rotate([90, 0, 0]) drill_hit(6,15);
-    //#translate([0,mater_width+retainer_plate_offset+5,19]) rotate(48) rotate([90, 0, 0]) drill_hit(5,20);    
-     
+    translate([2,mater_width+retainer_plate_offset+5,32]) rotate(30) rotate([90, 0, 0]) drill_hit(6,18);
+    translate([2,mater_width+retainer_plate_offset+5,25]) rotate(30) rotate([90, 0, 0]) drill_hit(6,18);
+    
     /// Holes at bottom to save filament/printing time.      
     // Left:
     translate([0, 0, base_height]) {
