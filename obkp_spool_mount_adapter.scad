@@ -109,12 +109,12 @@ union() {
         
     // Side drill hits 
     // Left panel
-    translate([4,-5, 32]) rotate(150) rotate([90, 0, 0]) drill_hit(6,18);
-    translate([4,-5, 25]) rotate(150) rotate([90, 0, 0]) drill_hit(6,18);    
+    #translate([4,-5, 32]) rotate(150) rotate([90, 0, 0]) translate([0, mater_width/2, 0]) cylinder(r=6/2.4, h=18);
+    #translate([4,-5, 25]) rotate(150) rotate([90, 0, 0]) translate([0, mater_width/2, 0]) cylinder(r=6/2.4, h=18);    
         
     // Right panel
-    translate([3,mater_width+retainer_plate_offset+5,32]) rotate(30) rotate([90, 0, 0]) drill_hit(6,18);
-    translate([3,mater_width+retainer_plate_offset+5,25]) rotate(30) rotate([90, 0, 0]) drill_hit(6,18);
+    #translate([3,mater_width+retainer_plate_offset+5,32]) rotate(30) rotate([90, 0, 0]) translate([0, mater_width/2, 0]) cylinder(r=6/2.4, h=18);    
+    #translate([3,mater_width+retainer_plate_offset+5,25]) rotate(30) rotate([90, 0, 0]) translate([0, mater_width/2, 0]) cylinder(r=6/2.4, h=18);
     
     /// Holes at bottom to save filament/printing time.      
     // Left:
