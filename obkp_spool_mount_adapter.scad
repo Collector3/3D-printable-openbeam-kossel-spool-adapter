@@ -35,7 +35,7 @@ union() {
         // Main body
         union() {            
             // Retainer panel closest to origin..
-            translate([0, 0, 0]) cube([mater_depth, retainer_plate_offset, mater_length]);
+            cube([mater_depth, retainer_plate_offset, mater_length]);
 
             // Retainer panel opposite side
             translate([0, mater_width, 0]) cube([mater_depth, retainer_plate_offset, mater_length]);
@@ -49,13 +49,13 @@ union() {
                    }
                    
                    // Outward angle matched against beam during side mounting
-                   translate([mater_depth, 0, base_height+bottom_cutout_amount_z]) rotate(30) translate([-14,0,0]) {
-                        cube([14, 9,mater_length-(base_height+bottom_cutout_amount_z)+top_catch_plate_height]);
+                   translate([mater_depth, 0, base_height+bottom_cutout_amount_z]) rotate(30) translate([-14, 0, 0]) {
+                        cube([14, 9, mater_length-(base_height+bottom_cutout_amount_z)+top_catch_plate_height]);
                    }
                 }
 
-                translate([mater_depth,0,base_height+bottom_cutout_amount_z]) translate([-25,0,0]) {
-                    cube([25, 10,mater_length-(base_height+bottom_cutout_amount_z)+top_catch_plate_height]);
+                translate([mater_depth, 0, base_height+bottom_cutout_amount_z]) translate([-25, 0, 0]) {
+                    cube([25, 10, mater_length-(base_height+bottom_cutout_amount_z)+top_catch_plate_height]);
                 }
             }
             
@@ -68,19 +68,19 @@ union() {
                     }
                     
                     // Outward angle matched against beam during side mounting
-                    translate([mater_depth,mater_width+retainer_plate_offset, base_height+bottom_cutout_amount_z]) {
-                        rotate(150) cube([14, 9,mater_length-(base_height+bottom_cutout_amount_z)+top_catch_plate_height]);
+                    translate([mater_depth, mater_width+retainer_plate_offset, base_height+bottom_cutout_amount_z]) {
+                        rotate(150) cube([14, 9, mater_length-(base_height+bottom_cutout_amount_z)+top_catch_plate_height]);
                     }
                 }
 
                 translate([mater_depth-25, mater_width+retainer_plate_offset-10, base_height+bottom_cutout_amount_z]) {
-                    cube([25, 10,mater_length-(base_height+bottom_cutout_amount_z)+top_catch_plate_height]);
+                    cube([25, 10, mater_length-(base_height+bottom_cutout_amount_z)+top_catch_plate_height]);
                 }
 
             }
 
             // Base bracket (attached to OpenBeam)
-            cube([mater_depth,mater_width,30]);
+            cube([mater_depth, mater_width, 30]);
 
             union() {
                 // Top lip, angled catch plate
@@ -113,12 +113,12 @@ union() {
 
     // Side drill hits
     // Left panel
-    #translate([3, -5, 32]) rotate(150) rotate([90, 0, 0]) side_drill_hit();
-    #translate([3, -5, 25]) rotate(150) rotate([90, 0, 0]) side_drill_hit();
+    translate([3, -5, 32]) rotate(150) rotate([90, 0, 0]) side_drill_hit();
+    translate([3, -5, 25]) rotate(150) rotate([90, 0, 0]) side_drill_hit();
 
     // Right panel
-    #translate([3,mater_width+retainer_plate_offset+5,32]) rotate(30) rotate([90, 0, 0]) side_drill_hit();
-    #translate([3,mater_width+retainer_plate_offset+5,25]) rotate(30) rotate([90, 0, 0]) side_drill_hit();
+    translate([3, mater_width+retainer_plate_offset+5, 32]) rotate(30) rotate([90, 0, 0]) side_drill_hit();
+    translate([3, mater_width+retainer_plate_offset+5, 25]) rotate(30) rotate([90, 0, 0]) side_drill_hit();
 
     /// Slots at bottom to save filament/printing time.
     // Left:
