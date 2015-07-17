@@ -5,14 +5,13 @@
 
 $fn=60;
 
-mater_thickness       = 3;
-mater_length          = 70.8;
-mater_width           = 30;
+mater_thickness        = 3;
+mater_length           = 70.8;
+mater_width            = 30;
 mater_depth            = 23;
 
-drill_size             = 4.5;
 inset_depth            = 1.5;
-drill_depth            = 3;
+drill_depth            = 5;
 
 retainer_plate_offset  = 1.5;
 bottom_cutout_amount_y = 7;
@@ -22,11 +21,18 @@ base_height            = 2.5;
 top_catch_plate_height = 2.5;
 
 module front_drill_hit(d2_depth=12,height=mater_depth+drill_depth) {
-    translate([0, mater_width/2, 0]) cylinder(r=drill_size/2.4, h=height, d2 = d2_depth);
+    translate([0, mater_width/2, -1]) {
+        cylinder(r=2.4, h=height, d2 = d2_depth);
+        // Approx target size    
+        // cylinder(r=2.77, h=height);
+    }
 }
 
 module side_drill_hit() {
-    translate([0, mater_width/2, 0]) cylinder(r=2.8, h=11);
+    translate([0, mater_width/2, 0]) { 
+        #cylinder(r=1.5, h=5.5);
+        translate([0, 0, 3.5]) #cylinder(r=2.77, h=11);
+    }
 }
 
 union() {
