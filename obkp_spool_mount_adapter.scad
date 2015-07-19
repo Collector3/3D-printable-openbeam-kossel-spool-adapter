@@ -12,7 +12,8 @@ mater_depth            = 23;
 
 inset_depth            = 1.5;
 drill_depth            = 5;
-drill_size             = 3.2;
+drill_size_side        = 3.2;
+drill_size_front       = 4.8;
 
 retainer_plate_offset  = 1.5;
 bottom_cutout_amount_y = 7;
@@ -23,7 +24,7 @@ top_catch_plate_height = 2.5;
 
 module front_drill_hit(d2_depth=12, height=mater_depth+drill_depth) {
     translate([0, mater_width/2, -1]) {
-        cylinder(d=drill_size, h=height, d2 = d2_depth);
+        cylinder(d=drill_size_front, h=height, d2 = d2_depth);
         // Approx target size    
         // cylinder(r=2.77, h=height);
     }
@@ -40,8 +41,8 @@ module polyhole(h, d) {
 module side_drill_hit() {
     translate([0, mater_width/2, 0]) { 
         
-        #translate([0, 0, 4]) polyhole(8, 6);
-        #translate([0, 0, 2.5]) polyhole(3, drill_size);
+        #translate([0, 0, 4]) polyhole(8, drill_size_side*2);
+        #translate([0, 0, 2.5]) polyhole(3, drill_size_side);
         
     }
 }
