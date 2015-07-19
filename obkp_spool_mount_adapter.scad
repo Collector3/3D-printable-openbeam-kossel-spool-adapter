@@ -12,6 +12,7 @@ mater_depth            = 23;
 
 inset_depth            = 1.5;
 drill_depth            = 5;
+drill_size             = 3.2;
 
 retainer_plate_offset  = 1.5;
 bottom_cutout_amount_y = 7;
@@ -22,7 +23,7 @@ top_catch_plate_height = 2.5;
 
 module front_drill_hit(d2_depth=12, height=mater_depth+drill_depth) {
     translate([0, mater_width/2, -1]) {
-        cylinder(r=2.4, h=height, d2 = d2_depth);
+        cylinder(d=drill_size, h=height, d2 = d2_depth);
         // Approx target size    
         // cylinder(r=2.77, h=height);
     }
@@ -39,8 +40,8 @@ module polyhole(h, d) {
 module side_drill_hit() {
     translate([0, mater_width/2, 0]) { 
         
-        #translate([0, 0, 3.5]) polyhole(8, 6);
-        #translate([0, 0, 2.5]) polyhole(3, 3.2);
+        #translate([0, 0, 4]) polyhole(8, 6);
+        #translate([0, 0, 2.5]) polyhole(3, drill_size);
         
     }
 }
@@ -129,11 +130,11 @@ union() {
 
     // Side drill hits
     // Left panel
-    translate([3, -5, 32]) rotate(150) rotate([90, 0, 0]) side_drill_hit();
+    translate([3, -5, 35]) rotate(150) rotate([90, 0, 0]) side_drill_hit();
     translate([3, -5, 25]) rotate(150) rotate([90, 0, 0]) side_drill_hit();
 
     // Right panel
-    translate([3, mater_width+retainer_plate_offset+5, 32]) rotate(30) rotate([90, 0, 0]) side_drill_hit();
+    translate([3, mater_width+retainer_plate_offset+5, 35]) rotate(30) rotate([90, 0, 0]) side_drill_hit();
     translate([3, mater_width+retainer_plate_offset+5, 25]) rotate(30) rotate([90, 0, 0]) side_drill_hit();
 
     /// Slots at bottom to save filament/printing time.
