@@ -20,7 +20,7 @@ base_height            = 2.5;
 
 top_catch_plate_height = 2.5;
 
-module front_drill_hit(d2_depth=12,height=mater_depth+drill_depth) {
+module front_drill_hit(d2_depth=12, height=mater_depth+drill_depth) {
     translate([0, mater_width/2, -1]) {
         cylinder(r=2.4, h=height, d2 = d2_depth);
         // Approx target size    
@@ -28,10 +28,20 @@ module front_drill_hit(d2_depth=12,height=mater_depth+drill_depth) {
     }
 }
 
+// For side drill hits, using polyhole()
+// http://hydraraptor.blogspot.com/2011/02/polyholes.html
+module polyhole(h, d) {
+    n = max(round(2 * d),3);
+    rotate([0,0,180])
+        cylinder(h = h, r = (d / 2) / cos (180 / n), $fn = n);
+}
+
 module side_drill_hit() {
     translate([0, mater_width/2, 0]) { 
-        #cylinder(r=1.5, h=5.5);
-        translate([0, 0, 3.5]) #cylinder(r=2.77, h=11);
+        
+        #translate([0, 0, 3.5]) polyhole(8, 6);
+        #translate([0, 0, 2.5]) polyhole(3, 3.2);
+        
     }
 }
 
